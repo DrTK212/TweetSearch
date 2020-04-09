@@ -25,7 +25,7 @@ TWEET_NUM = 1
 
 url = "https://twitter.com/search?f=tweets&vertical=default&q=%E3%83%AF%E3%83%B3%E3%82%B0%E3%83%BC%E3%83%95%E3%82%A7%E3%82%B9&src=typd&lang=ja"
 
-path_to_chromedriver = 'C:/Users/Ryutaro Takanami/chromedriver'
+path_to_chromedriver = 'C:/Users//ディレクトリ指定/chromedriver'
 browser = webdriver.Chrome(executable_path = path_to_chromedriver)
 
 browser.get(url);
@@ -115,7 +115,7 @@ def blogxtract(url):
             text = (i.find('p', class_ = 'TweetTextSize').get_text() if i.p is not None else "")
             
             #テキストに指定の単語が入っていないツイートは取得しないようにする（twitterの単語指定だとユーザ名に検索ワードが入っていると取得してしまうため）
-            if(text.find("ワングーフェス")==-1):
+            if(text.find("検索ワード")==-1):
                 continue
             
             rep = i.find('div', class_ = 'ProfileTweet-action ProfileTweet-action--reply').find("span",{"class":"ProfileTweet-actionCountForPresentation"}).get_text()
@@ -147,15 +147,7 @@ def blogxtract(url):
          
             
             tweet_list.append(tweet_dict)
-            
-            """
-            with open(file_out, 'w') as csvfile:
-
-                writer = csv.writer(csvfile, lineterminator='\n', delimiter=',')
-                writer.writerow(str(day),str(tim),str(user_name),str(user_id),str(text),str(rep),str(ret),str(fav))
-                
-            """
-            
+         
             
             
             
@@ -191,19 +183,6 @@ def blogxtract(url):
             #tweet_num += 1
             continue
         
-        """
-        with open(file_out, 'w') as csvfile:
-            
-            writer = csv.writer(csvfile, lineterminator='\n', delimiter=',')
-            
-            for i in tweet_list:
-                
-                #newrow = i["day"].encode('utf8'),i["tim"].encode('utf8'),i["user_name"].encode('utf8'),i["user_id"].encode('utf8'),i['text'].encode('utf8'),i["rep"].encode('utf8'),i["ret"].encode('utf8'),i["fav"].encode('utf8')
-                #newrow = i["day"],i["tim"],i["user_name"],i["user_id"],i['text'],i["rep"],i["ret"],i["fav"]
-                newrow = i["day"].replace(u"\xa0",u""),i["tim"].replace(u"\xa0",u""),i["user_name"].replace(u"\xa0",u""),i["user_id"].replace(u"\xa0",u""),i['text'].replace(u"\xa0",u""),i["rep"].replace(u"\xa0",u""),i["ret"].replace(u"\xa0",u""),i["fav"].replace(u"\xa0",u"")
-                
-                writer.writerow(newrow.replace(u"\u2042",u""))
-        """
         df = pd.DataFrame(tweet_list)
         df.to_excel('C:/Users/Ryutaro Takanami/.spyder-py3/WONGOO_FES/WGtweet.xlsx', sheet_name='new_sheet_name')
                 
@@ -215,7 +194,7 @@ def blogxtract(url):
 #tip the domino
 if __name__ == "__main__":
     blogxtract(url)
-    print("\007")
+    print("finish")
 
 
 
